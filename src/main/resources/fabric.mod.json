@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "waygates",
+  "version": "${version}",
+  "name": "Waygates",
+  "description": "Travel vast distances with ancient teleportation artifacts scattered around the world.",
+  "authors": [
+    "fzzyhmstrs"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/amethyst-imbuement",
+    "issues": "https://github.com/fzzyhmstrs/ai/issues",
+    "sources": "https://github.com/fzzyhmstrs/ai"
+  },
+  "license": "MIT License",
+  "icon": "assets/waygates/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "me.fzzyhmstrs.waygates.Waygates"
+      }
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "me.fzzyhmstrs.waygates.WaygatesClient"
+      }
+    ]
+  },
+  "mixins": [
+    "waygates.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "fabric-language-kotlin": ">=1.7.0+kotlin.1.6.0",
+    "minecraft": ">=1.18",
+    "java": ">=17"
+  }
+}

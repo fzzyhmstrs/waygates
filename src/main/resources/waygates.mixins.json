@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "me.fzzyhmstrs.questify.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
