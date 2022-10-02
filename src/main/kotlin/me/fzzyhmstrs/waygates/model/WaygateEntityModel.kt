@@ -1,7 +1,7 @@
-package me.fzzyhmstrs.ai_odyssey.model
+package me.fzzyhmstrs.waygates.model
 
 import com.google.common.collect.ImmutableList
-import me.fzzyhmstrs.ai_odyssey.entity.WaygateEntity
+import me.fzzyhmstrs.waygates.entity.WaygateEntity
 import net.minecraft.client.model.*
 import net.minecraft.client.render.VertexConsumer
 import net.minecraft.client.render.entity.model.EntityModel
@@ -9,19 +9,13 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames
 import net.minecraft.client.util.math.MatrixStack
 
 
-class WaygateEntityModel() : EntityModel<WaygateEntity>() {
+class WaygateEntityModel(private val modelPart: ModelPart) : EntityModel<WaygateEntity>() {
 
-    private var modelPart: ModelPart? = null
-    private var base: ModelPart? = null
-
-    constructor(_modelPart: ModelPart) : this(){
-        modelPart = _modelPart
-        this.base = modelPart?.getChild(EntityModelPartNames.CUBE)
-    }
+    private val base: ModelPart = modelPart.getChild(EntityModelPartNames.CUBE)
 
     override fun render(
-        matrices: MatrixStack?,
-        vertices: VertexConsumer?,
+        matrices: MatrixStack,
+        vertices: VertexConsumer,
         light: Int,
         overlay: Int,
         red: Float,
@@ -29,20 +23,16 @@ class WaygateEntityModel() : EntityModel<WaygateEntity>() {
         blue: Float,
         alpha: Float
     ) {
-        if (base != null) {
-            ImmutableList.of(base as ModelPart).forEach { modelRenderer ->
-                modelRenderer.render(
-                    matrices,
-                    vertices,
-                    light,
-                    overlay,
-                    red,
-                    green,
-                    blue,
-                    alpha
-                )
-            }
-        }
+        base.render(
+                matrices,
+                vertices,
+                light,
+                overlay,
+                red,
+                green,
+                blue,
+                alpha
+            )
     }
 
     override fun setAngles(
@@ -67,7 +57,7 @@ class WaygateEntityModel() : EntityModel<WaygateEntity>() {
                     .cuboid(-5f, 10f, -5f, 10f, 10f, 10f),
                 ModelTransform.pivot(0f, 0f, 0f)
             )
-            return TexturedModelData.of(modelData,64,64)
+            return TexturedModelData.of(modelData,64,32)
         }
     }
 }

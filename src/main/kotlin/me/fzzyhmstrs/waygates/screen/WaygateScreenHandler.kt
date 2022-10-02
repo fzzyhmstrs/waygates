@@ -1,7 +1,6 @@
-package me.fzzyhmstrs.ai_odyssey.screen
+package me.fzzyhmstrs.waygates.screen
 
-import me.emafire003.dev.coloredglowlib.util.Color
-import me.fzzyhmstrs.ai_odyssey.entity.WaygateHelper
+import me.fzzyhmstrs.waygates.entity.WaygateHelper
 import me.fzzyhmstrs.waygates.Waygates
 import me.fzzyhmstrs.waygates.entity.WaygateBlockEntity
 import me.fzzyhmstrs.waygates.registry.RegisterBlock
@@ -15,10 +14,9 @@ import net.minecraft.screen.Property
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.ScreenHandlerContext
 import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.sound.SoundCategory
-import net.minecraft.sound.SoundEvents
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
+import java.awt.Color
 
 class WaygateScreenHandler(
     syncID: Int,
@@ -33,13 +31,18 @@ class WaygateScreenHandler(
         WaygateBlockEntity(BlockPos.ORIGIN, RegisterBlock.WAYGATE.defaultState)
     )
 
-    val color = Property.create()
+    val red = Property.create()
+    val green = Property.create()
+    val blue = Property.create()
     val rainbow = Property.create()
     var name = entity.getSettings().customName
 
     init{
         val settings = entity.getSettings()
-        addProperty(color).set(settings.color)
+        val color = Color(settings.color)
+        addProperty(red).set(color.red)
+        addProperty(green).set(color.green)
+        addProperty(blue).set(color.blue)
         val rb = if(settings.priority){ 1 } else { 0 }
         addProperty(rainbow).set(rb)
         val player = playerInventory.player
@@ -49,32 +52,6 @@ class WaygateScreenHandler(
     }
 
     ////////////////////////////////////
-
-    override fun onButtonClick(player: PlayerEntity, id: Int): Boolean {
-        if (player.world.isClient) return true
-        if (id == 1){
-            if (rainbow.get() == 1){
-                rainbow.set(0)
-            } else {
-                rainbow.set(1)
-            }
-            context.run{world, pos ->
-                world.playSound(null, pos, SoundEvents.UI_BUTTON_CLICK,SoundCategory.BLOCKS, 0.5f, 1.2f)
-            }
-            sendContentUpdates()
-            return true
-        } else if (WaygateHelper.WaygateSettings.defaultColors.containsKey(id)) {
-            val newColor = WaygateHelper.WaygateSettings.defaultColors[id]?:0xFFFFFF
-            color.set(newColor)
-            context.run{world, pos ->
-                world.playSound(null, pos, SoundEvents.UI_BUTTON_CLICK,SoundCategory.BLOCKS, 0.5f, 1.2f)
-            }
-            sendContentUpdates()
-            return true
-        } else {
-            return false
-        }
-    }
 
     override fun canUse(player: PlayerEntity): Boolean {
         return true
@@ -123,11 +100,15 @@ class WaygateScreenHandler(
                     val customName = buf.readString()
                     val color = buf.readInt()
                     val priority = buf.readBoolean()
+                    val clr = Color(color)
 
                     handler.name = customName
-                    handler.color.set(color)
+                    handler.red.set(clr.red)
+                    handler.green.set(clr.green)
+                    handler.blue.set(clr.blue)
                     val rb = if(priority){ 1 } else { 0 }
                     handler.rainbow.set(rb)
+
                     handler.entity.updateSettings(WaygateHelper.WaygateSettings(handler.name, color, priority), player.world)
                 }
 

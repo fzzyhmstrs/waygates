@@ -1,8 +1,8 @@
 package me.fzzyhmstrs.waygates.block
 
-import me.fzzyhmstrs.ai_odyssey.screen.WaygateScreenHandler
 import me.fzzyhmstrs.waygates.entity.WaygateBlockEntity
 import me.fzzyhmstrs.waygates.registry.RegisterEntity
+import me.fzzyhmstrs.waygates.screen.WaygateScreenHandler
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
 import net.minecraft.block.BlockWithEntity

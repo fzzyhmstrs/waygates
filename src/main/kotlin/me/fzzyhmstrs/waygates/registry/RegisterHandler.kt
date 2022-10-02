@@ -1,6 +1,6 @@
 package me.fzzyhmstrs.waygates.registry
 
-import me.fzzyhmstrs.ai_odyssey.screen.WaygateScreenHandler
+import me.fzzyhmstrs.waygates.screen.WaygateScreenHandler
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.screen.ScreenHandlerType
 

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "waygates:block/waygate"
+    }
+  }
+}

@@ -1,4 +1,7 @@
-package me.fzzyhmstrs.ai_odyssey.particle
+package me.fzzyhmstrs.waygates.particle
 
-class WaygateBlockParticle {
+import net.minecraft.client.particle.AscendingParticle
+import net.minecraft.client.world.ClientWorld
+
+class WaygateBlockParticle(world: ClientWorld) {
 }

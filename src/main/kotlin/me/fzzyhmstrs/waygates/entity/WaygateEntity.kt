@@ -1,15 +1,16 @@
-package me.fzzyhmstrs.ai_odyssey.entity
+package me.fzzyhmstrs.waygates.entity
 
 import me.emafire003.dev.coloredglowlib.ColoredGlowLib
 import me.emafire003.dev.coloredglowlib.util.Color
-import me.fzzyhmstrs.ai_odyssey.registry.RegisterEntity
-import me.fzzyhmstrs.amethyst_core.nbt_util.Nbt
+import me.fzzyhmstrs.waygates.Waygates
+import me.fzzyhmstrs.waygates.registry.RegisterEntity
 import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.Packet
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket
 import net.minecraft.particle.ParticleTypes
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
@@ -51,21 +52,21 @@ class WaygateEntity(entityType: EntityType<out WaygateEntity>, world: World): En
     }
 
     override fun readCustomDataFromNbt(nbt: NbtCompound) {
-        life = Nbt.readIntNbt("life",nbt)
-        destination = Nbt.readBlockPos("dest_pos",nbt)
-        parent = Nbt.readBlockPos("parent_pos", nbt)
+        life = nbt.getInt("life")
+        destination = Waygates.readBlockPos("dest_pos",nbt)
+        parent = Waygates.readBlockPos("parent_pos", nbt)
         settings = WaygateHelper.WaygateSettings.fromNbt(nbt)
     }
 
     override fun writeCustomDataToNbt(nbt: NbtCompound) {
-        Nbt.writeIntNbt("life",life, nbt)
-        Nbt.writeBlockPos("dest_pos",destination,nbt)
-        Nbt.writeBlockPos("parent_pos",parent,nbt)
+        nbt.putInt("life",life)
+        Waygates.writeBlockPos("dest_pos",destination,nbt)
+        Waygates.writeBlockPos("parent_pos",parent,nbt)
         settings.toNbt(nbt)
     }
 
     override fun createSpawnPacket(): Packet<*> {
-        TODO("Not yet implemented")
+        return EntitySpawnS2CPacket(this)
     }
 
     override fun tick() {
@@ -80,7 +81,7 @@ class WaygateEntity(entityType: EntityType<out WaygateEntity>, world: World): En
         if (life <= 0){
             douse()
         }
-        addParticles(1)
+        addParticles(world.random.nextInt(3))
     }
 
     override fun initDataTracker() {}

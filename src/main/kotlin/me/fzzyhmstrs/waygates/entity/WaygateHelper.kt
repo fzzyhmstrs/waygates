@@ -1,7 +1,7 @@
-package me.fzzyhmstrs.ai_odyssey.entity
+package me.fzzyhmstrs.waygates.entity
 
-import me.fzzyhmstrs.amethyst_core.AC
-import me.fzzyhmstrs.amethyst_core.nbt_util.Nbt
+import me.fzzyhmstrs.waygates.entity.WaygateEntity
+import me.fzzyhmstrs.waygates.Waygates
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtList
@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.PersistentState
 import net.minecraft.world.World
+import java.awt.Color
 
 object WaygateHelper {
 
@@ -29,7 +30,7 @@ object WaygateHelper {
     }
 
     private fun stateFromNbt(nbt: NbtCompound): WaygatePersistentState{
-        val worldIdentifier = Identifier(Nbt.readStringNbt("world_id", nbt))
+        val worldIdentifier = Identifier(nbt.getString("world_id"))
         return createState(worldIdentifier).fromNbt(nbt)
     }
     
@@ -95,10 +96,10 @@ object WaygateHelper {
         val gates: MutableMap<BlockPos,WaygateSettings> = mutableMapOf()
 
         fun fromNbt(nbt: NbtCompound): WaygatePersistentState{
-            val list = Nbt.readNbtList(nbt,"gate_list")
+            val list = nbt.getList("gate_list",10)
             list.forEach {
                 val compound = it as NbtCompound
-                val pos = Nbt.readBlockPos("gate_pos", compound)
+                val pos = Waygates.readBlockPos("gate_pos", compound)
                 val settings = WaygateSettings.fromNbt(compound)
                 gates[pos] = settings
             }
@@ -109,22 +110,24 @@ object WaygateHelper {
             val list = NbtList()
             gates.forEach {
                 val compound = NbtCompound()
-                Nbt.writeBlockPos("gate_pos",it.key,compound)
+                Waygates.writeBlockPos("gate_pos",it.key,compound)
                 it.value.toNbt(compound)
                 list.add(compound)
             }
             nbt.put("gate_list",list)
             return nbt
         }
-
     }
 
     
     class WaygateSettings(val customName: String, val color: Int, val priority: Boolean){
+
+        val colorArray = Color(color).getColorComponents(null)
+
         fun toNbt(nbt: NbtCompound){
-            Nbt.writeStringNbt("custom_name",customName,nbt)
-            Nbt.writeIntNbt("color",color,nbt)
-            Nbt.writeBoolNbt("priority",priority,nbt)
+            nbt.putString("custom_name",customName)
+            nbt.putInt("color",color)
+            nbt.putBoolean("priority",priority)
         }
         companion object {
             
@@ -148,7 +151,7 @@ object WaygateHelper {
             )
             
             fun getDefault(): WaygateSettings{
-                val index = AC.acRandom.nextInt(defaultColors.size) + 2
+                val index = Waygates.waygatesRandom.nextInt(defaultColors.size) + 2
                 return WaygateSettings("",defaultColors[index]?:0xFFFFFF,false)
             }
             
@@ -157,13 +160,13 @@ object WaygateHelper {
                 var color = 0xFFFFFF
                 var priority = false
                 if (nbt.contains("custom_name")) {
-                    name = Nbt.readStringNbt("custom_name", nbt)
+                    name = nbt.getString("custom_name")
                 }
                 if (nbt.contains("color")) {
-                    color = Nbt.readIntNbt("color", nbt)
+                    color = nbt.getInt("color")
                 }
                 if (nbt.contains("priority")) {
-                    priority = Nbt.readBoolNbt("priority", nbt)
+                    priority = nbt.getBoolean("priority")
                 }
                 return WaygateSettings(name, color, priority)
             }
