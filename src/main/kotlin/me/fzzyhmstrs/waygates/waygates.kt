@@ -28,6 +28,7 @@ object Waygates: ModInitializer {
 
     override fun onInitialize() {
         RegisterBlock.registerAll()
+        RegisterItem.registerAll()
         RegisterEntity.registerAll()
         RegisterHandler.registerAll()
         RegisterParticle.registerParticleTypes()

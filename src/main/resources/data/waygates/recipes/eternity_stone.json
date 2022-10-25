@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"PEP",
+	"EDE",
+	"PEP"
+  ],
+  "key": {
+	"D": {
+	  "item": "minecraft:diamond"
+	},
+	"P": {
+	  "item": "minecraft:ender_pearl"
+	},
+	"G": {
+	  "item": "waygates:eternity_shard"
+	}
+  },
+  "result": {
+	"item": "waygates:eternity_stone"
+  }
+}
+
