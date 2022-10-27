@@ -1,6 +1,5 @@
 package me.fzzyhmstrs.waygates
 
-import me.fzzyhmstrs.waygates.entity.WaygateBlockEntity
 import me.fzzyhmstrs.waygates.entity.WaygateHelper
 import me.fzzyhmstrs.waygates.registry.*
 import me.fzzyhmstrs.waygates.screen.WaygateScreenHandler

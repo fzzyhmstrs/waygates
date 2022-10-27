@@ -1,4 +1,4 @@
-package me.fzzyhmstrs.ai_odyssey.particle
+package me.fzzyhmstrs.waygates.particle
 
 class WaygateEntityParticle {
 }
