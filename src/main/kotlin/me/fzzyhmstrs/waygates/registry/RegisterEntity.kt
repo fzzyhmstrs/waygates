@@ -1,6 +1,7 @@
 package me.fzzyhmstrs.waygates.registry
 
-import me.fzzyhmstrs.waygates.Waygates
+import me.fzzyhmstrs.waygates.MOD_ID
+import me.fzzyhmstrs.waygates.entity.DimensionalAnchorBlockEntity
 import me.fzzyhmstrs.waygates.entity.WaygateBlockEntity
 import me.fzzyhmstrs.waygates.entity.WaygateEntity
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
@@ -20,7 +21,7 @@ object RegisterEntity {
 
     val WAYGATE_BLOCK_ENTITY: BlockEntityType<WaygateBlockEntity> = Registry.register(
         Registry.BLOCK_ENTITY_TYPE,
-        Waygates.MOD_ID + ":waygate_block_entity",
+        "$MOD_ID:waygate_block_entity",
         FabricBlockEntityTypeBuilder.create({ pos: BlockPos, state: BlockState ->
             WaygateBlockEntity(
                 pos,
@@ -28,9 +29,19 @@ object RegisterEntity {
             )
         }, RegisterBlock.WAYGATE).build(null))
 
+    val DIMENSIONAL_ANCHOR_BLOCK_ENTITY: BlockEntityType<DimensionalAnchorBlockEntity> = Registry.register(
+        Registry.BLOCK_ENTITY_TYPE,
+        "$MOD_ID:dimensional_anchor_block_entity",
+        FabricBlockEntityTypeBuilder.create({ pos: BlockPos, state: BlockState ->
+            DimensionalAnchorBlockEntity(
+                pos,
+                state
+            )
+        }, RegisterBlock.DIMENSIONAL_ANCHOR).build(null))
+
     val WAYGATE_ENTITY: EntityType<WaygateEntity> = Registry.register(
         Registry.ENTITY_TYPE,
-        Identifier(Waygates.MOD_ID, "waygate_entity"),
+        Identifier(MOD_ID, "waygate_entity"),
         FabricEntityTypeBuilder.create(
             SpawnGroup.MISC
         ) { entityType: EntityType<WaygateEntity>, world: World ->

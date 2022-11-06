@@ -1,7 +1,7 @@
 package me.fzzyhmstrs.waygates.model
 
 import com.mojang.blaze3d.systems.RenderSystem
-import me.fzzyhmstrs.waygates.Waygates
+import me.fzzyhmstrs.waygates.MOD_ID
 import me.fzzyhmstrs.waygates.entity.WaygateEntity
 import me.fzzyhmstrs.waygates.registry.RegisterRenderer
 import net.minecraft.client.render.OverlayTexture
@@ -60,7 +60,7 @@ class WaygateEntityRenderer(ctx: EntityRendererFactory.Context) : EntityRenderer
 
 
     override fun getTexture(entity: WaygateEntity): Identifier {
-        return Identifier(Waygates.MOD_ID, "textures/entity/waygate_sprite.png")
+        return Identifier(MOD_ID, "textures/entity/waygate_sprite.png")
     }
 
     override fun hasLabel(entity: WaygateEntity): Boolean {

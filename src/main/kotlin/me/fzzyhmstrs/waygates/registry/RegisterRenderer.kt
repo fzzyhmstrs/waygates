@@ -1,5 +1,6 @@
 package me.fzzyhmstrs.waygates.registry
 
+import me.fzzyhmstrs.waygates.MOD_ID
 import me.fzzyhmstrs.waygates.Waygates
 import me.fzzyhmstrs.waygates.model.WaygateEntityModel
 import me.fzzyhmstrs.waygates.model.WaygateEntityRenderer
@@ -11,7 +12,7 @@ import net.minecraft.util.Identifier
 
 object RegisterRenderer {
 
-    val WAYGATE_SPRITE: EntityModelLayer = EntityModelLayer(Identifier(Waygates.MOD_ID,"waygate_sprite"),"waygate_sprite_layer")
+    val WAYGATE_SPRITE: EntityModelLayer = EntityModelLayer(Identifier(MOD_ID,"waygate_sprite"),"waygate_sprite_layer")
 
     fun registerAll(){
 

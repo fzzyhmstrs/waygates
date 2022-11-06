@@ -2,22 +2,26 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
 	"GSG",
-	"SES",
+	"NWN",
 	"GSG"
   ],
   "key": {
-	"E": {
-	  "item": "waygates:eternity_stone"
+	"W": {
+	  "item": "waygates:waygate"
 	},
 	"G": {
-	  "item": "minecraft:gold_ingot"
+	  "item": "minecraft:gold_block"
 	},
 	"S": {
-	  "item": "waygates:sea_lantern"
+	  "item": "minecraft:shulker_shell"
+	},
+	"N": {
+	  "item": "minecraft:netherite_scrap"
 	}
   },
   "result": {
-	"item": "waygates:waygate"
+	"item": "waygates:dimensional_anchor",
+	"count": 2
   }
 }
 

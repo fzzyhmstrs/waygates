@@ -9,9 +9,9 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.util.math.BlockPos
 import kotlin.random.Random
 
+const val MOD_ID = "waygates"
 
 object Waygates: ModInitializer {
-    const val MOD_ID = "waygates"
     val waygatesRandom = Random(System.currentTimeMillis())
 
     fun writeBlockPos(key: String, pos: BlockPos, nbt: NbtCompound){

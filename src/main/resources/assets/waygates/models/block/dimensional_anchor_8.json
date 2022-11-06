@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "waygates:block/dimensional_anchor_8"
+  }
+}
